@@ -19,7 +19,7 @@ import random, os
 from captcha.image import ImageCaptcha
 import datetime
 import pickle
-import tg_bot.data_functions as df
+import data_functions as df
 
 # File paths to other folders
 parent_dir = os.path.abspath(up(__file__))
@@ -63,10 +63,6 @@ channel_id = config['CHANNEL_ID']
 
 # Project specifics taken from project_specs.json file
 project_name = project_presets['settings']['project_name']
-welcome_msg = project_presets['welcome_msg']
-help_msg = project_presets['help']
-price_msg = project_presets['price']
-resources_msg = project_presets['resources']
 settings = project_presets['settings']
 
 # Set up connection with SQLite database
@@ -204,6 +200,10 @@ async def toggle_settings_func(event):
 
 @bot.on(events.NewMessage(pattern="/price"))
 async def show_price(event):
+    if project_presets['price']['enabled'] == 0:
+        return
+    price_msg = project_presets['price']
+
     loading_msg = await bot.send_message(event.chat_id, f"⏳__Loading price...__⌛")
     get_data = df.BlockchainData
     token_list = []
