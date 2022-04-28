@@ -376,6 +376,7 @@ async def edit_allowed_links(event):
 @bot.on(events.CallbackQuery(func=edit_custom_commands))
 async def edit_custom_cmds(event):
     if b"add" in event.data:
+        user_id = event.user_id
         first_msg = await bot.send_message(event.chat_id, "What kind of command do you want to add?",
                                               buttons=[[Button.inline("1. Send Text", data=b'1')],
                                                        [Button.inline("2. Links as Buttons", data=b'2')],
@@ -392,7 +393,7 @@ async def edit_custom_cmds(event):
                                                   f"ℹ__ This is what members will type to use the command.__\n"
                                                   f"__Can be with or without /__")
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_name = reply.original_update.message.message
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -416,7 +417,7 @@ async def edit_custom_cmds(event):
                                                   f"❗ Enter text to send when command is used.\n----------------------------------------\n"
                                                   f"ℹ__This is what the bot will send as a message in the chat__")
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_message = reply.original_update.message.message
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -426,7 +427,7 @@ async def edit_custom_cmds(event):
                                                   f"❗ Give the command a description.\n----------------------------------------\n"
                                                   f"ℹ__This is what will show as short description when someone use the /help command__")
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_desc = reply.original_update.message.message
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -449,7 +450,7 @@ async def edit_custom_cmds(event):
                                                   f"ℹ__ This is what members will type to use the command.__\n"
                                                   f"__Can be with or without /__")
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_name = reply.original_update.message.message
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -473,7 +474,7 @@ async def edit_custom_cmds(event):
                                                   f"❗ Enter caption to send with the buttons.\n----------------------------------------\n"
                                                   f"ℹ__This is what will show as text above the buttons__")
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_message = reply.original_update.message.message
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -483,7 +484,7 @@ async def edit_custom_cmds(event):
                                                   f"❗ Give the command a description.\n----------------------------------------\n"
                                                   f"ℹ__This is what will show as short description when someone use the /help command__")
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_desc = reply.original_update.message.message
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -511,7 +512,7 @@ async def edit_custom_cmds(event):
                                                                  f"❗ Type 'done' when you're done adding buttons!")
             while True:
                 async with bot.conversation(event.chat_id) as conv:
-                    await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                    await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                     reply = await await_reply
                     command_reply = reply.original_update.message.message
                     await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -547,7 +548,7 @@ async def edit_custom_cmds(event):
                                                                 f"ℹ__ This is what members will type to use the command.__\n"
                                                                 f"__Can be with or without /__")
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_name = reply.original_update.message.message
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -571,7 +572,7 @@ async def edit_custom_cmds(event):
                                                                                f"❗ Enter caption to send with the file(s).\n----------------------------------------\n"
                                                                                f"ℹ__This is what will show as text__")
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_message = reply.original_update.message.message
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -581,7 +582,7 @@ async def edit_custom_cmds(event):
                                                                                f"❗ Give the command a description.\n----------------------------------------\n"
                                                                                f"ℹ__This is what will show as short description when someone use the /help command__")
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_desc = reply.original_update.message.message
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -594,7 +595,7 @@ async def edit_custom_cmds(event):
             files = []
             count = 1
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_file = reply.original_update.message.media
                 await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
@@ -623,7 +624,7 @@ async def edit_custom_cmds(event):
                                                                                f"❗ Type 'done' when you're done adding files!")
             while True:
                 async with bot.conversation(event.chat_id) as conv:
-                    await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                    await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                     reply = await await_reply
                     command_reply = reply.original_update.message.message
                     await bot.delete_messages(event.chat_id, message_ids=reply.original_update.message.id)
