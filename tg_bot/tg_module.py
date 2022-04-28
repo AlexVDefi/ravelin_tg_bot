@@ -1433,7 +1433,7 @@ async def fun_response(event):
             id=939064079232794628, access_hash=-8912556582100229719
         )
     ))
-    await event.respond(file=stickers_cats[75])
+    await event.respond(file=stickers_cats.documents[75])
     await event.respond(f"Just trying to help...")
 
 
