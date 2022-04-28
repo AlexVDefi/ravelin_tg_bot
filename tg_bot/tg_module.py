@@ -1379,7 +1379,7 @@ async def custom_command_send(event):
     raw_message = event.message.message
     for key in custom_commands_names:
         if "@" in raw_message.lower():
-            raw_message = re.findall(r"(.*)@", raw_message.lower())
+            raw_message = re.findall(r"(.*)@", raw_message.lower())[0]
         if raw_message.lower() in key:
             command_key = key
     command = custom_commands_dict[command_key]
