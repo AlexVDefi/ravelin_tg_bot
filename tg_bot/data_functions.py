@@ -15,15 +15,15 @@ class BlockchainData:
         # Load config file and ABI's
         parent_dir = os.path.abspath(up(__file__))
         filepath = os.path.join(up(parent_dir), 'binaries')
-        configFile = filepath + "\\config.json"
-        networkFile = filepath + "\\network_info.json"
-        avaxABI = filepath + "\\avax_abi.json"
-        pcsABI = filepath + "\\psc_abi.json"
-        balanceABI = filepath + "\\balance_abi.json"
-        erc20ABI = filepath + "\\erc20_abi.json"
-        routersFile = filepath + "\\routers.json"
-        currencyFile = filepath + "\\currency_adds.json"
-        weiFile = filepath + "\\wei_values.json"
+        configFile = filepath + "/config.json"
+        networkFile = filepath + "/network_info.json"
+        avaxABI = filepath + "/avax_abi.json"
+        pcsABI = filepath + "/psc_abi.json"
+        balanceABI = filepath + "/balance_abi.json"
+        erc20ABI = filepath + "/erc20_abi.json"
+        routersFile = filepath + "/routers.json"
+        currencyFile = filepath + "/currency_adds.json"
+        weiFile = filepath + "/wei_values.json"
 
         with open(networkFile) as f:
             self.network_info = json.load(f)

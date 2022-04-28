@@ -1,5 +1,5 @@
 {
-  "/pulsar, pulsar": {
+  "/ravelin, ravelin": {
     "message": "**Ravelin Resources**" ,
     "description": "Shows Ravelin resources" ,
     "buttons": {
@@ -18,6 +18,10 @@
       "4": [
         "\ud83e\udd86 Twitter" ,
         "https://twitter.com/RavelinFinance"
+      ] ,
+      "5": [
+        "\uD83D\uDDE8 Discord" ,
+        "https://discord.gg/qa4fjcsCuV"
       ]
     } ,
     "files": [ ]
