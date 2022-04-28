@@ -1,0 +1,25 @@
+{
+  "/pulsar, pulsar": {
+    "message": "**Ravelin Resources**" ,
+    "description": "Shows Ravelin resources" ,
+    "buttons": {
+      "1": [
+        "\ud83c\udf10 Website" ,
+        "https://www.ravelin.finance/"
+      ] ,
+      "2": [
+        "\ud83d\udcd6 Docs" ,
+        "https://ravelin-finance.gitbook.io/ravelin-finance/"
+      ] ,
+      "3": [
+        "\ud83d\udcac Telegram" ,
+        "https://t.me/ravelinfinance"
+      ] ,
+      "4": [
+        "\ud83e\udd86 Twitter" ,
+        "https://twitter.com/RavelinFinance"
+      ]
+    } ,
+    "files": [ ]
+  }
+}

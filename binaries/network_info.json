@@ -1,0 +1,35 @@
+[
+  {
+    "NETWORK": "BSC",
+    "RPC": "https://bsc-dataseed.binance.org/",
+    "CHAIN": "0x38",
+    "NATIVE": ["BNB", "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"],
+    "STABLE": ["BUSD", "0xe9e7cea3dedca5984780bafc599bd69add087d56"],
+    "CONTRACT": "PCS",
+    "MIN_GAS_LIMIT": 21000
+  },
+  {
+    "NETWORK": "POLYGON",
+    "RPC": "https://polygon-rpc.com/",
+    "CHAIN": "0x89",
+    "NATIVE": ["MATIC", "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"],
+    "STABLE": ["USDC", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"],
+    "CONTRACT": "PCS"
+  },
+  {
+    "NETWORK": "AVAX",
+    "RPC": "https://api.avax.network/ext/bc/C/rpc",
+    "CHAIN": "0xa86a",
+    "NATIVE": ["AVAX", "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7"],
+    "STABLE": ["USDC.e", "0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664"],
+    "CONTRACT": "AVAX"
+  },
+  {
+    "NETWORK": "MILKOMEDA",
+    "RPC": "https://rpc-mainnet-cardano-evm.c1.milkomeda.com/",
+    "CHAIN": "0x7d1",
+    "NATIVE": ["MADA", "0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9"],
+    "STABLE": ["USDC", "0x5a955FDdF055F2dE3281d99718f5f1531744B102"],
+    "CONTRACT": "PCS"
+  }
+]

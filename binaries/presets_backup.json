@@ -1,0 +1,70 @@
+{
+  "welcome_msg": {
+    "message": "\uD83D\uDC4B Welcome **<user_id>!** \uD83D\uDC4B \nThis is the official **Ravelin Finance** TG channel!\n__Message auto-deletes in <20> seconds__",
+    "auto-delete": {
+      "timer": 20,
+      "enabled": 1
+    },
+    "buttons": {
+      "website": ["\uD83C\uDF10 Website", "https://www.ravelin.finance/"],
+      "docs": ["\uD83D\uDCD5 Docs", "https://ravelin-finance.gitbook.io/ravelin-finance/"],
+      "telegram": ["\uD83D\uDCAC Telegram", "https://t.me/ravelinfinance"],
+      "discord": ["\uD83D\uDDE8 Discord", ""],
+      "twitter": ["\uD83E\uDD86 Twitter", "https://twitter.com/RavelinFinance"],
+      "reddit": [],
+      "instagram": []
+    },
+    "enabled": 1
+  },
+  "help": {
+    "message": "**Available Commands:**\n",
+    "enabled": 1
+  },
+  "price": {
+    "message": "**\uD83D\uDCB5 Current Price:**\n",
+    "enabled": 1,
+    "tokens": {
+      "1": {
+        "name": "RAV",
+        "address": "0x9B7c74Aa737FE278795fAB2Ad62dEFDbBAedFBCA",
+        "network": "MILKOMEDA",
+        "router": "OccamX"
+      },
+      "2": {
+        "name": "RSHARE",
+        "address": "0xD81E377E9cd5093CE752366758207Fc61317fC70",
+        "network": "MILKOMEDA",
+        "router": "OccamX"
+      }
+    }
+  },
+  "resources": {
+    "message": "**Ravelin Finance Resources**",
+    "buttons": {
+      "website": ["\uD83C\uDF10 Website", "https://www.ravelin.finance/"],
+      "docs": ["\uD83D\uDCD5 Docs", "https://ravelin-finance.gitbook.io/ravelin-finance/"],
+      "telegram": ["\uD83D\uDCAC Telegram", "https://t.me/ravelinfinance"],
+      "discord": ["\uD83D\uDDE8 Discord", ""],
+      "twitter": ["\uD83E\uDD86 Twitter", "https://twitter.com/RavelinFinance"],
+      "reddit": [],
+      "instagram": []
+    }
+  },
+  "settings": {
+    "banned_names": {
+      "enabled": 1
+    },
+    "banned_links": {
+      "enabled": 1
+    },
+    "banned_words": {
+      "enabled": 1
+    },
+    "custom_commands": {
+      "enabled": 1
+    },
+    "warnings": 5,
+    "channel_id": 1281227356,
+    "project_name": "Ravelin Finance"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "/bm, bm": {
+    "message": "**BattleMancer Resources**",
+    "description":"Shows Battlemancer resources",
+    "buttons": {
+      "1": ["\uD83C\uDF10 Website", "https://www.battlemancers.com/"],
+      "2": ["\uD83D\uDCD6 Docs", "https://doc.icecolony.com/"],
+      "3": ["\uD83D\uDCAC Telegram", "https://t.me/battlemancer"],
+      "4": ["\uD83D\uDDE3 Discord", "https://t.co/9Am6dTbnpZ"],
+      "5": ["\uD83E\uDD86 Twitter", "https://twitter.com/BattleMancers"]
+      },
+    "files": []
+  },
+  "/test, test": {
+    "message": "Test messsage",
+    "description": "",
+    "buttons": {},
+    "files": ["yes"]
+  }
+}

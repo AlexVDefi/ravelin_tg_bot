@@ -1,0 +1,30 @@
+[
+  {
+    "UNIT": "wei",
+    "DECIMALS": "1"
+  },
+  {
+    "UNIT": "kwei",
+    "DECIMALS": "3"
+  },
+  {
+    "UNIT": "mwei",
+    "DECIMALS": "6"
+  },
+  {
+    "UNIT": "gwei",
+    "DECIMALS": "9"
+  },
+  {
+    "UNIT": "microether",
+    "DECIMALS": "12"
+  },
+  {
+    "UNIT": "milliether",
+    "DECIMALS": "15"
+  },
+  {
+    "UNIT": "ether",
+    "DECIMALS": "18"
+  }
+]

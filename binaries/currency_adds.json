@@ -1,0 +1,77 @@
+[
+    {
+        "NETWORK": "BSC",
+        "CURRENCY": "BNB",
+        "ADDRESS": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+    },
+    {
+        "NETWORK": "POLYGON",
+        "CURRENCY": "MATIC",
+        "ADDRESS": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"
+    },
+    {
+        "NETWORK": "AVAX",
+        "CURRENCY": "AVAX",
+        "ADDRESS": "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7"
+    },
+    {
+        "NETWORK": "BSC",
+        "CURRENCY": "BUSD",
+        "ADDRESS": "0xe9e7cea3dedca5984780bafc599bd69add087d56"
+    },
+    {
+        "NETWORK": "BSC",
+        "CURRENCY": "USDC",
+        "ADDRESS": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d"
+    },
+    {
+        "NETWORK": "AVAX",
+        "CURRENCY": "USDC.e",
+        "ADDRESS": "0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664"
+    },
+    {
+        "NETWORK": "POLYGON",
+        "CURRENCY": "USDC",
+        "ADDRESS": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174"
+    },
+    {
+        "NETWORK": "BSC",
+        "CURRENCY": "CAKE",
+        "ADDRESS": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
+    },
+    {
+        "NETWORK": "POLYGON",
+        "CURRENCY": "QUICK",
+        "ADDRESS": "0x831753dd7087cac61ab5644b308642cc1c33dc13"
+    },
+    {
+        "NETWORK": "AVAX",
+        "CURRENCY": "JOE",
+        "ADDRESS": "0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd"
+    },
+    {
+        "NETWORK": "AVAX",
+        "CURRENCY": "MIM",
+        "ADDRESS": "0x130966628846bfd36ff31a822705796e8cb8c18d"
+    },
+    {
+        "NETWORK": "BSC",
+        "CURRENCY": "MONSTA",
+        "ADDRESS": "0x8a5d7fcd4c90421d21d30fcc4435948ac3618b2f"
+    },
+    {
+        "NETWORK": "BSC",
+        "CURRENCY": "ETH",
+        "ADDRESS": "0x2170ed0880ac9a755fd29b2688956bd959f933f8"
+    },
+    {
+        "NETWORK": "BSC",
+        "CURRENCY": "DOGEWHALE",
+        "ADDRESS": "0x43adC41cf63666EBB1938B11256f0ea3f16e6932"
+    },
+    {
+        "NETWORK": "BSC",
+        "CURRENCY": "DOGEALLY",
+        "ADDRESS": "0x05822195B28613b0F8A484313d3bE7B357C53A4a"
+    }
+]
