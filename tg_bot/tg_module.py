@@ -376,7 +376,7 @@ async def edit_allowed_links(event):
 @bot.on(events.CallbackQuery(func=edit_custom_commands))
 async def edit_custom_cmds(event):
     if b"add" in event.data:
-        user_id = event.user_id
+        user_id = event.query.user_id
         first_msg = await bot.send_message(event.chat_id, "What kind of command do you want to add?",
                                               buttons=[[Button.inline("1. Send Text", data=b'1')],
                                                        [Button.inline("2. Links as Buttons", data=b'2')],
