@@ -138,6 +138,8 @@ async def custom_filter(event):
         for new_word in words:
             if new_word.lower() == event.raw_text.lower() or f"{new_word.lower()}@" in event.raw_text.lower():
                 return True
+            elif new_word+"@" in event.raw_text:
+                return True
     return False
 
 
@@ -1376,6 +1378,8 @@ async def custom_command_send(event):
         return
     raw_message = event.message.message
     for key in custom_commands_names:
+        if "@" in raw_message.lower():
+            raw_message = re.findall(r"(.*)@", raw_message.lower())
         if raw_message.lower() in key:
             command_key = key
     command = custom_commands_dict[command_key]
