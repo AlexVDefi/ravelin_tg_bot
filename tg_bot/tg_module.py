@@ -262,11 +262,12 @@ async def toggle_settings(event):
 @bot.on(events.CallbackQuery(func=edit_banned_words))
 async def edit_banned_words(event):
     if b"add" in event.data:
+        user_id = event.query.user_id
         msg_to_edit = await bot.send_message(event.chat_id, "Type the word(s) you want to add, separated by commas.\n"
                                               "Or type 'cancel' to perform different action.\n"
                                               "__Example: word1, word2, word3, word4__")
         async with bot.conversation(event.chat_id) as conv:
-            await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+            await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
             reply = await await_reply
             reply_message = reply.original_update.message.message
             if "," in reply_message:
@@ -319,10 +320,11 @@ async def edit_banned_words(event):
 @bot.on(events.CallbackQuery(func=edit_allowed_links))
 async def edit_allowed_links(event):
     if b"add" in event.data:
+        user_id = event.query.user_id
         msg_to_edit = await bot.send_message(event.chat_id, "Type the link/keyword you want to add, separated by commas.\n"
                                               "__Example: link1, word1, word2, link2__")
         async with bot.conversation(event.chat_id) as conv:
-            await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+            await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
             reply = await await_reply
             reply_message = reply.original_update.message.message
             if "," in reply_message:
@@ -497,7 +499,7 @@ async def edit_custom_cmds(event):
             buttons = {}
             count = 1
             async with bot.conversation(event.chat_id) as conv:
-                await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                 reply = await await_reply
                 command_button = reply.original_update.message.message
                 command_button = str(command_button).split(", ")
@@ -713,11 +715,12 @@ async def edit_custom_cmds(event):
 @bot.on(events.CallbackQuery(func=edit_admins))
 async def edit_admins(event):
     if b"add" in event.data:
+        user_id = event.query.user_id
         msg_to_edit = await bot.send_message(event.chat_id, "Type the usernames you want to add, with @ and separated by commas.\n"
                                               "Or type 'cancel' to perform different action.\n"
                                               "__Example: @admin1, @admin2, @admin3, @admin3__")
         async with bot.conversation(event.chat_id) as conv:
-            await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+            await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
             reply = await await_reply
             reply_message = reply.original_update.message.message
             if "," in reply_message:
@@ -786,6 +789,7 @@ async def handler(event):
     # Check banned users
     if event.data == b'check-banned':
         try:
+            user_id = event.query.user_id
             kicked = await bot.get_participants(channel_id, filter=ChannelParticipantsKicked)
             kicked_len = len(kicked)
             id_list = []
@@ -823,8 +827,6 @@ async def handler(event):
                                                                     [Button.inline('🔴 Cancel', 'cancel'), Button.inline('🔍 Search', "search")]])
                         id_list.append(load_more.id)
                     elif b"search" in reply_data:
-                        if b"new" in reply_data:
-                            print(reply)
                         search_msg = await bot.send_message(event.chat_id, f"Acceptable search terms:\n"
                                                                            f"- Username\n"
                                                                            f"- First name\n"
@@ -832,7 +834,7 @@ async def handler(event):
                                                                            f"- A combination of the above\n"
                                                                            f"__Awaiting input...__")
                         async with bot.conversation(event.chat_id) as conv:
-                            await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                            await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                             reply = await await_reply
                             reply_msg = reply.original_update.message.message
                             id_list.append(reply.id)
@@ -933,7 +935,7 @@ async def handler(event):
                                                                            f"- A combination of the above\n"
                                                                            f"__Awaiting input...__")
                         async with bot.conversation(event.chat_id) as conv:
-                            await_reply = conv.wait_event(events.NewMessage(), timeout=60)
+                            await_reply = conv.wait_event(events.NewMessage(from_users=user_id), timeout=60)
                             reply = await await_reply
                             reply_msg = reply.original_update.message.message
                             id_list.append(reply.id)
