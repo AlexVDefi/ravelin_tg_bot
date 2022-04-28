@@ -1424,6 +1424,9 @@ async def captcha(event):
         search_query = db.select([users_table]).where(users_table.columns.peer_id == peer_user)
         ResultProxy = connection.execute(search_query)
         ResultSet = ResultProxy.fetchall()
+        if not ResultSet:
+            query = db.insert(users_table).values(peer_id=peer_user)
+            connection.execute(query)
         if not ResultSet[0][2]:
             captcha = await create_captcha()
             captcha_msg = await bot.send_message(event.chat_id, "**Type the captcha below to verify yourself!\n**")
