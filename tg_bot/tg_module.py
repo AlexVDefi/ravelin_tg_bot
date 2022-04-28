@@ -1424,7 +1424,7 @@ async def captcha(event):
         search_query = db.select([users_table]).where(users_table.columns.peer_id == peer_user)
         ResultProxy = connection.execute(search_query)
         ResultSet = ResultProxy.fetchall()
-        if not ResultSet:
+        if not ResultSet[0]:
             query = db.insert(users_table).values(peer_id=peer_user)
             connection.execute(query)
         if not ResultSet[0][2]:
