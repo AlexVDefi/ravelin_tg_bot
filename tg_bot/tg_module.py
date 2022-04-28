@@ -136,7 +136,7 @@ async def custom_filter(event):
         else:
             words = word
         for new_word in words:
-            if new_word.lower() == event.raw_text.lower():
+            if new_word.lower() == event.raw_text.lower() or f"{new_word.lower}@" in event.raw_text.lower():
                 return True
     return False
 
