@@ -3,7 +3,8 @@ import telethon
 from telethon import TelegramClient, events
 from telethon.tl.types import InputStickerSetID, MessageMediaPhoto, Photo, PhotoSize, PhotoSizeEmpty, PhotoSizeProgressive, MessageMediaDocument
 from telethon.tl.functions.channels import EditBannedRequest, GetMessagesRequest
-from telethon.tl.types import ChatBannedRights
+from telethon.tl.functions.messages import GetStickerSetRequest
+from telethon.tl.types import ChatBannedRights, InputStickerSetID
 from telethon.tl.types import ChannelParticipantsKicked, ChannelParticipantsBanned
 from telethon.utils import pack_bot_file_id, resolve_bot_file_id
 from time import time
@@ -87,10 +88,6 @@ version_table = db.Table('version', metadata, autoload=True, autoload_with=sessi
 bot = TelegramClient(session, config['TG_API_ID'], config['TG_API_HASH']).start(bot_token=bot_token)
 print("Connected")
 
-# Filters for catching words in the chat
-help_filter_l = ["/help", "help", "Help"]
-banned_links_l = ["https:", "t.me", "http:"]
-
 # Open admin list text file
 with open(filepath_bin+"/admin_list.json") as f:
     admin_list = json.load(f)['admins']
@@ -127,6 +124,10 @@ config_buttons = [[Button.inline(f'⬅ Back to main menu', data=b'open-admin')],
                   [Button.inline(f'📝 Custom Commands Filter:', data=b'toggle-custom')],
                   ]
 
+# Filters for catching words in the chat
+help_filter_l = ["/help", "help", "Help"]
+banned_links_l = ["https:", "t.me", "http:"]
+fun_filter_list = ["bad bot", "stupid bot", "dumb bot", "fuck you bot"]
 
 # --- Filter functions, used by @bot.on decorator --- #
 async def custom_filter(event):
@@ -140,6 +141,13 @@ async def custom_filter(event):
                 return True
             elif new_word+"@" in event.raw_text:
                 return True
+    return False
+
+
+async def fun_filter(event):
+    for word in fun_filter_list:
+        if word.lower() in event.raw_text.lower():
+            return True
     return False
 
 
@@ -1211,8 +1219,6 @@ async def mute_ban_function(event):
                 await bot.delete_messages(event.chat_id, message_ids=[unmuted_msg.id])
     except:
         no_msg = await bot.send_message(event.chat_id, f"Eh, no I'm not doing that...\n")
-        await asyncio.sleep(10)
-        await bot.delete_messages(event.chat_id, message_ids=[no_msg.id])
 
 # Function for handling a banned word being sent
 @bot.on(events.NewMessage(func=banned_word))
@@ -1418,6 +1424,17 @@ async def help_message(event):
                         f"/price - Shows current RAV and RSHARE price.\n"
                         f"{avail_commands}"
                         f"__Note: You can use some commands with or without the /__")
+
+
+@bot.on(events.NewMessage(func=fun_filter))
+async def fun_response(event):
+    stickers_cats = await bot(GetStickerSetRequest(
+        stickerset=InputStickerSetID(
+            id=939064079232794628, access_hash=-8912556582100229719
+        )
+    ))
+    await event.respond(file=stickers_cats[75])
+    await event.respond(f"Just trying to help...")
 
 
 # Function for new users verifying
