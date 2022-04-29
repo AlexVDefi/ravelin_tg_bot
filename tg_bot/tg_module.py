@@ -391,6 +391,7 @@ async def edit_custom_cmds(event):
                                               buttons=[[Button.inline("1. Send Text", data=b'1')],
                                                        [Button.inline("2. Links as Buttons", data=b'2')],
                                                        [Button.inline("3. Send File(s)", data=b'3')],
+                                                       [Button.inline("4. Countdown", data=b'4')],
                                                        [Button.inline("Clear message.", data=b'deletethis')]])
         async with bot.conversation(event.chat_id) as conv:
             await_reply = conv.wait_event(events.CallbackQuery(), timeout=60)
@@ -1283,7 +1284,6 @@ async def banned_words_func(event):
         await bot(EditBannedRequest(event.chat_id, peer_user, restricted))
         await asyncio.sleep(10)
         await bot.delete_messages(event.chat_id, message_ids=[muted_msg.id])
-
 
 
 # Test function - Can be changed and used to run quick tests
