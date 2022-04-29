@@ -1380,6 +1380,17 @@ async def message_timer(message_text, message_id, message_buttons=None):
             new_message.append(i+"\n")
 
 
+# Secret cat, meow
+@bot.on(events.NewMessage(pattern="/cat"))
+async def fun_cat(event):
+    stickers_cats = await bot(GetStickerSetRequest(
+        stickerset=InputStickerSetID(
+            id=939064079232794628, access_hash=-8912556582100229719
+        )
+    ))
+    await event.respond(file=stickers_cats.documents[random.randint(0, 119)])
+
+
 # Function custom commands
 @bot.on(events.NewMessage(func=custom_filter))
 async def custom_command_send(event):
