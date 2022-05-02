@@ -1390,6 +1390,16 @@ async def fun_cat(event):
     ))
     await event.respond(file=stickers_cats.documents[random.randint(0, 119)])
 
+# Secret dog, woof
+@bot.on(events.NewMessage(pattern="/dog"))
+async def fun_dog(event):
+    stickers_dogs = await bot(GetStickerSetRequest(
+        stickerset=InputStickerSetID(
+            id=328774854541049858, access_hash=-5892331139888351818
+        )
+    ))
+    await event.respond(file=stickers_dogs.documents[random.randint(0, 41)])
+
 
 # Function custom commands
 @bot.on(events.NewMessage(func=custom_filter))
