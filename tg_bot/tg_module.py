@@ -1395,7 +1395,7 @@ async def fun_cat(event):
 async def fun_dog(event):
     stickers_dogs = await bot(GetStickerSetRequest(
         stickerset=InputStickerSetID(
-            id=328774854541049858, access_hash=-5892331139888351818
+            id=328774854541049858, access_hash=1718076299037790553
         )
     ))
     await event.respond(file=stickers_dogs.documents[random.randint(0, 41)])
