@@ -1,6 +1,6 @@
 from web3 import Web3
 from web3.middleware import geth_poa_middleware
-from datetime import datetime, timezone
+import datetime
 from os.path import dirname as up
 import json
 import os
@@ -8,6 +8,7 @@ import requests
 import re
 from time import sleep, time
 import asyncio
+import threading
 
 
 class BlockchainData:
@@ -21,6 +22,9 @@ class BlockchainData:
         pcsABI = filepath + "/psc_abi.json"
         balanceABI = filepath + "/balance_abi.json"
         erc20ABI = filepath + "/erc20_abi.json"
+        treasuryABI = filepath + "/treasury_abi.json"
+        ravpoolABI = filepath + "/ravpool_abi.json"
+        rsharepoolABI = filepath + "/rsharepool_abi.json"
         routersFile = filepath + "/routers.json"
         currencyFile = filepath + "/currency_adds.json"
         weiFile = filepath + "/wei_values.json"
@@ -43,6 +47,12 @@ class BlockchainData:
             self.currency_file = json.load(f)
         with open(weiFile) as f:
             self.wei_file = json.load(f)
+        with open(treasuryABI) as f:
+            self.treasury_abi = json.load(f)
+        with open(ravpoolABI) as f:
+            self.ravpool_abi = json.load(f)
+        with open(rsharepoolABI) as f:
+            self.rsharepool_abi = json.load(f)
 
         for net_info in self.network_info:
             if net_info["NETWORK"] == network:
@@ -83,6 +93,29 @@ class BlockchainData:
         # Stablecoin address
         self.stable_address = Web3.toChecksumAddress(
             self.stablecoin)
+
+        # Ravelin specifics
+        self.treasury_contract = self.w3.eth.contract(address=Web3.toChecksumAddress("0x351bDAC12449974e98C9bd2FBa572EdE21C1b7C4"),
+                                                      abi=self.treasury_abi)
+        self.boardroom_address = Web3.toChecksumAddress("0x618C166262282DcB6Cdc1bFAB3808e2fa4ADFEc2")
+
+        self.rav_address = Web3.toChecksumAddress("0x9B7c74Aa737FE278795fAB2Ad62dEFDbBAedFBCA")
+        self.rav_contract = self.w3.eth.contract(address=self.rav_address, abi=self.erc20_abi)
+
+        self.rshare_address = Web3.toChecksumAddress("0xD81E377E9cd5093CE752366758207Fc61317fC70")
+        self.rshare_contract = self.w3.eth.contract(address=self.rshare_address, abi=self.erc20_abi)
+
+        self.ravpool_address = Web3.toChecksumAddress("0x9F6fFbE7BE08784bFe2297eBEb80E0F21bF72F3F")
+        self.ravpool_contract = self.w3.eth.contract(address=self.ravpool_address, abi=self.ravpool_abi)
+
+        self.rsharepool_address = Web3.toChecksumAddress("0xa85B4e44A28B5F10b3d5751A68e03E44B53b7e89")
+        self.rsharepool_contract = self.w3.eth.contract(address=self.rsharepool_address, abi=self.rsharepool_abi)
+
+        self.rav_lp_address = Web3.toChecksumAddress("0xd65005ef5964b035b3a2a1e79ddb4522196532de")
+        self.rav_lp_contract = self.w3.eth.contract(address=self.rav_lp_address, abi=self.erc20_abi)
+
+        self.rshare_lp_address = Web3.toChecksumAddress("0x73bc306Aa2D393ff5aEb49148b7B2C9a8E5d39c8")
+        self.rshare_lp_contract = self.w3.eth.contract(address=self.rshare_lp_address, abi=self.erc20_abi)
 
         self.stable_contract = self.w3.eth.contract(address=self.stable_address, abi=self.erc20_abi)
 

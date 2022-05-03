@@ -21,6 +21,7 @@ from captcha.image import ImageCaptcha
 import datetime
 import pickle
 import data_functions as df
+import ravelin_functions as rf
 
 # File paths to other folders
 parent_dir = os.path.abspath(up(__file__))
@@ -225,6 +226,47 @@ async def show_price(event):
     message_text = price_msg['message']
     for line in token_list:
         message_text += line
+    await bot.edit_message(event.chat_id, loading_msg, message_text)
+
+@bot.on(events.NewMessage(pattern="/stats"))
+async def show_full_price(event):
+    if project_presets['price']['enabled'] == 0:
+        return
+    get_data = rf.BlockchainData
+    loading_msg = await bot.send_message(event.chat_id, f"⏳__Loading stats...__⌛")
+    info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
+    if float(info_dict['peg']) > 1:
+        peg_status = "🟢"
+    else:
+        peg_status = "🔴"
+    message_text = f"🤑💰💸 TOKENS 💸💰🤑\n" \
+                f"**RAV**:\n" \
+                f"- ${info_dict['rav_price']}\n" \
+                f"- PEG: {peg_status} x{info_dict['peg']}\n" \
+                f"- Circulating: {info_dict['circulating_rav']}\n" \
+                f"--------\n" \
+                f"**RSHARE**:\n" \
+                f"- ${info_dict['rshare_price']}\n" \
+                f"- Circulating: {info_dict['circulating_rshare']}\n" \
+                f"--------\n" \
+                f"**ADA**:\n" \
+                f"- ${info_dict['ada_price']}\n" \
+                f"-------------------------------------------\n" \
+                f"👨‍🌾🌽🚜 FARMS 🚜🌽👨‍🌾\n" \
+                f"**RAV-mADA**:\n" \
+                f"- Daily ROI: {info_dict['rav_mada_apr']}%\n" \
+                f"- APR: {float(info_dict['rav_mada_apr'])*365}%\n" \
+                f"--------\n" \
+                f"**RSHARE-mADA**:\n" \
+                f"- Daily ROI: {info_dict['rshare_mada_apr']}%\n" \
+                f"- APR: {float(info_dict['rshare_mada_apr'])*365}%\n" \
+                f"-------------------------------------------\n" \
+                f"💼👔🍾 BOARDROOM 🍾👔💼\n" \
+                f"Current Epoch: {info_dict['current_epoch']}\n" \
+                f"Next Epoch in: {info_dict['next_epoch']}\n" \
+                f"RSHARE Staked: {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}% of circulating)\n" \
+                f"Daily ROI: {info_dict['boardroom_apr']}%\n" \
+                f"APR: {float(info_dict['boardroom_apr'])*365}%"
     await bot.edit_message(event.chat_id, loading_msg, message_text)
 
 
@@ -1399,6 +1441,13 @@ async def fun_dog(event):
         )
     ))
     await event.respond(file=stickers_dogs.documents[random.randint(0, 41)])
+
+
+# Secret vaultman, pls fix
+@bot.on(events.NewMessage(pattern="/vaultman"))
+async def fun_vman(event):
+    quotes = ["wen next layer?", "dev fix price", "disable sell button", "dev burn more", "need more shill", "admin you burn too much tokens", "nox fix it", "too many tokens", "need more burn", "WHEN NEXT LAYER?"]
+    await event.respond(quotes[random.randint(0, 9)])
 
 
 # Function custom commands
