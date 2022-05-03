@@ -1,0 +1,1216 @@
+[
+  {
+    "type": "event" ,
+    "name": "BoardroomFunded" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "timestamp" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "seigniorage" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      }
+    ] ,
+    "anonymous": false
+  } ,
+  {
+    "type": "event" ,
+    "name": "BoughtBonds" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "from" ,
+        "internalType": "address" ,
+        "indexed": true
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "ravAmount" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "bondAmount" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      }
+    ] ,
+    "anonymous": false
+  } ,
+  {
+    "type": "event" ,
+    "name": "BurnedBonds" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "from" ,
+        "internalType": "address" ,
+        "indexed": true
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "bondAmount" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      }
+    ] ,
+    "anonymous": false
+  } ,
+  {
+    "type": "event" ,
+    "name": "DaoFundFunded" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "timestamp" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "seigniorage" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      }
+    ] ,
+    "anonymous": false
+  } ,
+  {
+    "type": "event" ,
+    "name": "DevFundFunded" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "timestamp" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "seigniorage" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      }
+    ] ,
+    "anonymous": false
+  } ,
+  {
+    "type": "event" ,
+    "name": "Initialized" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "executor" ,
+        "internalType": "address" ,
+        "indexed": true
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "at" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      }
+    ] ,
+    "anonymous": false
+  } ,
+  {
+    "type": "event" ,
+    "name": "RedeemedBonds" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "from" ,
+        "internalType": "address" ,
+        "indexed": true
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "ravAmount" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "bondAmount" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      }
+    ] ,
+    "anonymous": false
+  } ,
+  {
+    "type": "event" ,
+    "name": "TreasuryFunded" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "timestamp" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "seigniorage" ,
+        "internalType": "uint256" ,
+        "indexed": false
+      }
+    ] ,
+    "anonymous": false
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "PERIOD" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "allocateSeigniorage" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "address" ,
+        "name": "" ,
+        "internalType": "address"
+      }
+    ] ,
+    "name": "boardroom" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "boardroomAllocateSeigniorage" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "amount" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "boardroomGovernanceRecoverUnsupported" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "_token" ,
+        "internalType": "address"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "_amount" ,
+        "internalType": "uint256"
+      } ,
+      {
+        "type": "address" ,
+        "name": "_to" ,
+        "internalType": "address"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "boardroomSetLockUp" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_withdrawLockupEpochs" ,
+        "internalType": "uint256"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "_rewardLockupEpochs" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "boardroomySetOperator" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "_operator" ,
+        "internalType": "address"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "bondDepletionFloorPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "bootstrapEpochs" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "bootstrapSupplyExpansionPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "buyBonds" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_ravAmount" ,
+        "internalType": "uint256"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "targetPrice" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "address" ,
+        "name": "" ,
+        "internalType": "address"
+      }
+    ] ,
+    "name": "daoFund" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "daoFundSharedPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "address" ,
+        "name": "" ,
+        "internalType": "address"
+      }
+    ] ,
+    "name": "devFund" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "devFundSharedPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "discountPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "epoch" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "epochSupplyContractionLeft" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "address" ,
+        "name": "" ,
+        "internalType": "address"
+      }
+    ] ,
+    "name": "excludedFromTotalSupply" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "_rate" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "getBondDiscountRate" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "_rate" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "getBondPremiumRate" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "_burnableRavLeft" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "getBurnableRavLeft" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "_ravPrice" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "getRAVUpdatedPrice" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "getRavCirculatingSupply" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "ravPrice" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "getRavPrice" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "_redeemableBonds" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "getRedeemableBonds" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "getReserve" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "governanceRecoverUnsupported" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "_token" ,
+        "internalType": "contract IERC20"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "_amount" ,
+        "internalType": "uint256"
+      } ,
+      {
+        "type": "address" ,
+        "name": "_to" ,
+        "internalType": "address"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "initialize" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "_rav" ,
+        "internalType": "address"
+      } ,
+      {
+        "type": "address" ,
+        "name": "_rbond" ,
+        "internalType": "address"
+      } ,
+      {
+        "type": "address" ,
+        "name": "_rshare" ,
+        "internalType": "address"
+      } ,
+      {
+        "type": "address" ,
+        "name": "_ravOracle" ,
+        "internalType": "address"
+      } ,
+      {
+        "type": "address" ,
+        "name": "_boardroom" ,
+        "internalType": "address"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "_startTime" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "bool" ,
+        "name": "" ,
+        "internalType": "bool"
+      }
+    ] ,
+    "name": "initialized" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "bool" ,
+        "name": "" ,
+        "internalType": "bool"
+      }
+    ] ,
+    "name": "isInitialized" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "maxDebtRatioPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "maxDiscountRate" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "maxExpansionTiers" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "maxPremiumRate" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "maxSupplyContractionPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "maxSupplyExpansionPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "mintingFactorForPayingDebt" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "nextEpochPoint" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "address" ,
+        "name": "" ,
+        "internalType": "address"
+      }
+    ] ,
+    "name": "operator" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "premiumPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "premiumThreshold" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "previousEpochRavPrice" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "address" ,
+        "name": "" ,
+        "internalType": "address"
+      }
+    ] ,
+    "name": "rav" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "address" ,
+        "name": "" ,
+        "internalType": "address"
+      }
+    ] ,
+    "name": "ravOracle" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "ravPriceCeiling" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "ravPriceOne" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "address" ,
+        "name": "" ,
+        "internalType": "address"
+      }
+    ] ,
+    "name": "rbond" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "redeemBonds" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_bondAmount" ,
+        "internalType": "uint256"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "targetPrice" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "address" ,
+        "name": "" ,
+        "internalType": "address"
+      }
+    ] ,
+    "name": "rshare" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "seigniorageExpansionFloorPercent" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "seigniorageSaved" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setBoardroom" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "_boardroom" ,
+        "internalType": "address"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setBondDepletionFloorPercent" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_bondDepletionFloorPercent" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setBootstrap" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_bootstrapEpochs" ,
+        "internalType": "uint256"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "_bootstrapSupplyExpansionPercent" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setDiscountPercent" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_discountPercent" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setExtraFunds" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "_daoFund" ,
+        "internalType": "address"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "_daoFundSharedPercent" ,
+        "internalType": "uint256"
+      } ,
+      {
+        "type": "address" ,
+        "name": "_devFund" ,
+        "internalType": "address"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "_devFundSharedPercent" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setMaxDebtRatioPercent" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_maxDebtRatioPercent" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setMaxDiscountRate" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_maxDiscountRate" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [
+      {
+        "type": "bool" ,
+        "name": "" ,
+        "internalType": "bool"
+      }
+    ] ,
+    "name": "setMaxExpansionTiersEntry" ,
+    "inputs": [
+      {
+        "type": "uint8" ,
+        "name": "_index" ,
+        "internalType": "uint8"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "_value" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setMaxPremiumRate" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_maxPremiumRate" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setMaxSupplyContractionPercent" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_maxSupplyContractionPercent" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setMaxSupplyExpansionPercents" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_maxSupplyExpansionPercent" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setMintingFactorForPayingDebt" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_mintingFactorForPayingDebt" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setOperator" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "_operator" ,
+        "internalType": "address"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setPremiumPercent" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_premiumPercent" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setPremiumThreshold" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_premiumThreshold" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setRavOracle" ,
+    "inputs": [
+      {
+        "type": "address" ,
+        "name": "_ravOracle" ,
+        "internalType": "address"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [ ] ,
+    "name": "setRavPriceCeiling" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "_ravPriceCeiling" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "nonpayable" ,
+    "outputs": [
+      {
+        "type": "bool" ,
+        "name": "" ,
+        "internalType": "bool"
+      }
+    ] ,
+    "name": "setSupplyTiersEntry" ,
+    "inputs": [
+      {
+        "type": "uint8" ,
+        "name": "_index" ,
+        "internalType": "uint8"
+      } ,
+      {
+        "type": "uint256" ,
+        "name": "_value" ,
+        "internalType": "uint256"
+      }
+    ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "startTime" ,
+    "inputs": [ ]
+  } ,
+  {
+    "type": "function" ,
+    "stateMutability": "view" ,
+    "outputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ] ,
+    "name": "supplyTiers" ,
+    "inputs": [
+      {
+        "type": "uint256" ,
+        "name": "" ,
+        "internalType": "uint256"
+      }
+    ]
+  }
+]
