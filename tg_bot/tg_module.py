@@ -375,6 +375,8 @@ async def show_bridge_instructions(event):
     msg_txt = f"**HOW TO BRIDGE TO MILKOMEDA**\n" \
             f" \n" \
             f"**Setting RPC in MetaMask:**\n" \
+            f"- Use [Chainlist](http://chainlist.org) to automate setup!\n" \
+            f"**Manual setup**:\n" \
             f"- Network Name : Milkomeda Cardano (C1)\n" \
             f"- New RPC URL : https://rpc-mainnet-cardano-evm.c1.milkomeda.com\n" \
             f"- Chain ID : 2001\n" \
