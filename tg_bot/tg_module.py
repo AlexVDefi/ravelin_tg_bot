@@ -250,15 +250,15 @@ async def show_price(event):
         peg_status = "🟢"
     else:
         peg_status = "🔴"
-    message_text = f"**RAV: ${info_dict['rav_price']}**\n" \
+    message_text = f"**RAV:** ${info_dict['rav_price']}\n" \
                    f"- PEG: {peg_status} x{info_dict['peg']}\n" \
                    f"- Circulating: {info_dict['circulating_rav']}\n" \
                    f"--------\n" \
-                   f"**RSHARE: ${info_dict['rshare_price']}**\n" \
+                   f"**RSHARE:** ${info_dict['rshare_price']}\n" \
                    f"- Circulating: {info_dict['circulating_rshare']}\n" \
                    f"- In Boardroom: {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}%)\n" \
                    f"--------\n" \
-                   f"**ADA**:${info_dict['ada_price']}" \
+                   f"**ADA**: ${info_dict['ada_price']}" \
 
     await bot.edit_message(event.chat_id, loading_msg, message_text)
 
