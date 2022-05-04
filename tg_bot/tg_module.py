@@ -370,6 +370,62 @@ async def show_full_price(event):
     await bot.edit_message(event.chat_id, loading_msg, message_text)
 
 
+@bot.on(events.NewMessage(pattern="/bridge"))
+async def show_bridge_instructions(event):
+    msg_txt = f"**HOW TO BRIDGE TO MILKOMEDA**\n" \
+            f" \n" \
+            f"**Setting RPC in MetaMask:**\n" \
+            f"- Network Name : Milkomeda Cardano (C1)\n" \
+            f"- New RPC URL : https://rpc-mainnet-cardano-evm.c1.milkomeda.com\n" \
+            f"- Chain ID : 2001\n" \
+            f"- Currency Symbol : MilkADA\n" \
+            f"- Block Explorer URL : https://explorer-mainnet-cardano-evm.c1.milkomeda.com\n" \
+            f" \n" \
+
+    buttons = [[Button.inline("EXCHANGE & FLINT WALLET", data=b'flint')],
+               [Button.inline("ETH VIA MULTICHAIN", data=b'eth')],
+               [Button.inline("BSC VIA CELER NETWORK", data=b'bsc')]]
+
+    msg_to_edit = await bot.send_message(event.chat_id, msg_txt+f"**Click a button to see instructions**",
+                                             buttons=buttons)
+    async with bot.conversation(event.chat_id) as conv:
+        await_reply = conv.wait_event(events.CallbackQuery(), timeout=1000)
+        reply = await await_reply
+        reply_data = reply.data
+
+    if reply_data == b'flint':
+        msg_add = f"🟢 VIA EXCHANGE & FLINT WALLET\n" \
+                  f"1. Buy Cardano From CEX\n" \
+                  f"2. Send to Flint Wallet [Download Here](https://chrome.google.com/webstore/detail/flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj/related)\n" \
+                  f"3. Press '__Send__' on Flint Wallet\n" \
+                  f"4. Activate __'Milkomeda Mode'__\n" \
+                  f"5. Fill in the receiver address (__Metamask Address__) & Amount\n" \
+                  f"6. Continue\n" \
+                  f"**Ready to buy RAV/RSHARE!**"
+
+        await bot.edit_message(event.chat_id, message=msg_to_edit.id, text=msg_txt+msg_add,
+                               buttons=[Button.url("Buy RAV/RSHARE on OccamX", url="https://app.occam-x.fi/swap")])
+
+    elif reply_data == b'eth':
+        msg_add = f"🟢 FROM ETH VIA MULTICHAIN\n" \
+                  f"1. Use [Multichain](https://multichain.org/) and bridge ETH to Milkomeda Mainnet\n" \
+                  f"2. Go to [MilkySwap](https://www.milkyswap.exchange/) and Swap your ETH for ADA(MilkAda)\n" \
+                  f"3. Use the [Milkydex faucet](https://app.milkydex.com/faucet) to get ADA for gas.\n" \
+                  f"**Ready to buy RAV/RSHARE!**"
+
+        await bot.edit_message(event.chat_id, message=msg_to_edit.id, text=msg_txt+msg_add,
+                               buttons=[Button.url("Buy RAV/RSHARE on OccamX", url="https://app.occam-x.fi/swap")])
+
+    elif reply_data == b'bsc':
+        msg_add = f"🟢 FROM BSC VIA CELER NETWORK\n" \
+                  f"1. Transfer BNB (BSC) to BNB (Milkomeda) Via [Celer Network](https://cbridge.celer.network/#/transfer)\n" \
+                  f"2. Swap your BNB to ADA(MilkAda) Via [MuesliSwap](https://milkomeda.muesliswap.com/swap)\n" \
+                  f"**Ready to buy RAV/RSHARE!**"
+
+        await bot.edit_message(event.chat_id, message=msg_to_edit.id, text=msg_txt+msg_add,
+                               buttons=[Button.url("Buy RAV/RSHARE on OccamX", url="https://app.occam-x.fi/swap")])
+
+
 # Function for enabling/disabling welcome message
 @bot.on(events.CallbackQuery(func=toggle_settings_func))
 async def toggle_settings(event):
@@ -1596,6 +1652,7 @@ async def help_message(event):
                         f"/epoch - Shows current epoch and time until next.\n"
                         f"/farms - Shows farms stats.\n"
                         f"/boardroom - Shows boardroom stats.\n"
+                        f"/bridge - Instructions on how to bridge"
                         f"{avail_commands}"
                         f"__Note: You can use some commands with or without the /__")
 
