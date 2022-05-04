@@ -116,6 +116,17 @@ class BlockchainData:
         self.amount_in = Web3.toWei(1, 'ether')
         self.gasLimit = 400000
 
+    async def next_epoch(self):
+        next_epoch = self.treasury_contract.functions.nextEpochPoint().call()
+        countdown = datetime.datetime.utcfromtimestamp(next_epoch) - datetime.datetime.utcnow()
+        s = countdown.total_seconds()
+        hours, remainder = divmod(s, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        current_epoch = self.treasury_contract.functions.epoch().call()
+        next_epoch = '{:02}h {:02}m {:02}s'.format(int(hours), int(minutes), int(seconds))
+
+        return next_epoch
+
     def get_prices(self, token):
         decimals = "ether"
         token_name = ""
@@ -288,7 +299,8 @@ class BlockchainData:
         boardroom_daily_alloc = float(rav_circulating) * float(expansion_rate) * 4
         boardroom_daily_roi = "{:0.2f}".format(1 / float(boardroom_tvl) * boardroom_daily_alloc * float(real_rav) * 100)
 
-        return {"rav_price": real_rav, "rshare_price": real_rshare, "ada_price": real_ada, "tvl": total_tvl, "next_epoch": next_epoch,
+        return {"rav_price": real_rav, "rshare_price": real_rshare, "ada_price": real_ada, "tvl": total_tvl,
+                "rav_tvl": rav_tvl, "rshare_tvl": rshare_tvl, "boardroom_tvl": boardroom_tvl, "next_epoch": next_epoch,
                 "current_epoch": current_epoch, "rav_mada_apr": rav_mada_daily_roi, "rshare_mada_apr": rshare_mada_daily_roi,
                 "boardroom_apr": boardroom_daily_roi, "circulating_rav": rav_circulating, "circulating_rshare": rshare_circulating,
                 "rshare_locked_pct": rshare_locked_pct, "rshare_locked": int(boardroom_balance), "peg": peg}

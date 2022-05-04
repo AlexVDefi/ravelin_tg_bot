@@ -20,7 +20,6 @@ import random, os
 from captcha.image import ImageCaptcha
 import datetime
 import pickle
-import data_functions as df
 import ravelin_functions as rf
 
 # File paths to other folders
@@ -209,36 +208,114 @@ async def toggle_settings_func(event):
         return True
     return False
 
+# @bot.on(events.NewMessage(pattern="/price"))
+# async def show_price(event):
+#     if project_presets['price']['enabled'] == 0:
+#         return
+#     price_msg = project_presets['price']
+#
+#     loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading price...__ ⌛")
+#     get_data = df.BlockchainData
+#     token_list = []
+#     for token in price_msg["tokens"]:
+#         token = price_msg["tokens"][str(token)]
+#         price = await get_data(token['network'], token['router'], token['address']).get_token_price_in_usdc()
+#         line = f"{token['name']}: ${price}\n"
+#         token_list.append(line)
+#     message_text = price_msg['message']
+#     for line in token_list:
+#         message_text += line
+#     await bot.edit_message(event.chat_id, loading_msg, message_text)
+
+
+@bot.on(events.NewMessage(pattern="/epoch"))
+async def show_epoch(event):
+    get_data = rf.BlockchainData
+    loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading Epoch...__ ⌛")
+    info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
+    message_text = f"⏰ EPOCH ⏰\n" \
+                       f"- Current: {info_dict['current_epoch']}\n" \
+                       f"- Next in {info_dict['next_epoch']}"
+    await bot.edit_message(event.chat_id, loading_msg, message_text)
+
+
 @bot.on(events.NewMessage(pattern="/price"))
 async def show_price(event):
     if project_presets['price']['enabled'] == 0:
         return
-    price_msg = project_presets['price']
+    get_data = rf.BlockchainData
+    loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading Price...__ ⌛")
+    info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
+    if float(info_dict['peg']) > 1:
+        peg_status = "🟢"
+    else:
+        peg_status = "🔴"
+    message_text = f"**RAV: ${info_dict['rav_price']}**\n" \
+                   f"- PEG: {peg_status} x{info_dict['peg']}\n" \
+                   f"- Circulating: {info_dict['circulating_rav']}\n" \
+                   f"--------\n" \
+                   f"**RSHARE: ${info_dict['rshare_price']}**\n" \
+                   f"- Circulating: {info_dict['circulating_rshare']}\n" \
+                   f"- In Boardroom: {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}%)\n" \
+                   f"--------\n" \
+                   f"**ADA**:${info_dict['ada_price']}" \
 
-    loading_msg = await bot.send_message(event.chat_id, f"⏳__Loading price...__⌛")
-    get_data = df.BlockchainData
-    token_list = []
-    for token in price_msg["tokens"]:
-        token = price_msg["tokens"][str(token)]
-        price = await get_data(token['network'], token['router'], token['address']).get_token_price_in_usdc()
-        line = f"{token['name']}: ${price}\n"
-        token_list.append(line)
-    message_text = price_msg['message']
-    for line in token_list:
-        message_text += line
     await bot.edit_message(event.chat_id, loading_msg, message_text)
+
+
+@bot.on(events.NewMessage(pattern="/farms"))
+async def show_farms(event):
+    get_data = rf.BlockchainData
+    loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading Farms...__ ⌛")
+    info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
+    message_text = f"👨‍🌾🌽🚜 FARMS 🚜🌽👨‍🌾\n" \
+                   f"**RAV-mADA**:\n" \
+                   f"- Daily ROI: {info_dict['rav_mada_apr']}%\n" \
+                   f"- APR: {float(info_dict['rav_mada_apr'])*365}%\n" \
+                   f"- TVL: {'{:0.2f}'.format(info_dict['rav_tvl'])}\n" \
+                   f"--------\n" \
+                   f"**RSHARE-mADA**:\n" \
+                   f"- Daily ROI: {info_dict['rshare_mada_apr']}%\n" \
+                   f"- APR: {float(info_dict['rshare_mada_apr'])*365}%\n" \
+                   f"- TVL: {'{:0.2f}'.format(info_dict['rshare_tvl'])}" \
+
+    await bot.edit_message(event.chat_id, loading_msg, message_text)
+
+
+@bot.on(events.NewMessage(pattern="/boardroom"))
+async def show_boardroom(event):
+    get_data = rf.BlockchainData
+    loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading Boardroom...__ ⌛")
+    info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
+    message_text = f"💼👔🍾 BOARDROOM 🍾👔💼\n" \
+                   f"- Current Epoch: {info_dict['current_epoch']}\n" \
+                   f"- Next Epoch in: {info_dict['next_epoch']}\n" \
+                   f"- RSHARE Staked: (${'{:0.2f}'.format(float(info_dict['rshare_locked'])*float(info_dict['rshare_price']))}) {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}%)\n" \
+                   f"- Daily ROI: {info_dict['boardroom_apr']}%\n" \
+                   f"- APR: {float(info_dict['boardroom_apr'])*365}%"
+
+    await bot.edit_message(event.chat_id, loading_msg, message_text)
+
 
 @bot.on(events.NewMessage(pattern="/stats"))
 async def show_full_price(event):
     if project_presets['price']['enabled'] == 0:
         return
     get_data = rf.BlockchainData
-    loading_msg = await bot.send_message(event.chat_id, f"⏳__Loading stats...__⌛")
+    loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading stats...__ ⌛")
     info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
     if float(info_dict['peg']) > 1:
         peg_status = "🟢"
     else:
         peg_status = "🔴"
+
+    rshare_locked_value = '{:0.2f}'.format(float(info_dict['rshare_locked'])*float(info_dict['rshare_price']))
+    rshare_locked_value = '{:,}'.format(float(rshare_locked_value))
+    rshare_tvl = '{:0.2f}'.format(info_dict['rshare_tvl'])
+    rshare_tvl = '{:,}'.format(float(rshare_tvl))
+    rav_tvl = '{:0.2f}'.format(info_dict['rav_tvl'])
+    rav_tvl = '{:,}'.format(float(rav_tvl))
+
     message_text = f"🤑💰💸 TOKENS 💸💰🤑\n" \
                 f"**RAV**:\n" \
                 f"- ${info_dict['rav_price']}\n" \
@@ -255,18 +332,26 @@ async def show_full_price(event):
                 f"👨‍🌾🌽🚜 FARMS 🚜🌽👨‍🌾\n" \
                 f"**RAV-mADA**:\n" \
                 f"- Daily ROI: {info_dict['rav_mada_apr']}%\n" \
-                f"- APR: {float(info_dict['rav_mada_apr'])*365}%\n" \
+                f"- APR: {'{:0.2f}'.format(float(info_dict['rav_mada_apr'])*365)}%\n" \
+                f"- TVL: ${rav_tvl}\n" \
                 f"--------\n" \
                 f"**RSHARE-mADA**:\n" \
                 f"- Daily ROI: {info_dict['rshare_mada_apr']}%\n" \
-                f"- APR: {float(info_dict['rshare_mada_apr'])*365}%\n" \
+                f"- APR: {'{:0.2f}'.format(float(info_dict['rshare_mada_apr'])*365)}%\n" \
+                f"- TVL: ${rshare_tvl}\n" \
                 f"-------------------------------------------\n" \
                 f"💼👔🍾 BOARDROOM 🍾👔💼\n" \
-                f"Current Epoch: {info_dict['current_epoch']}\n" \
-                f"Next Epoch in: {info_dict['next_epoch']}\n" \
-                f"RSHARE Staked: {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}% of circulating)\n" \
-                f"Daily ROI: {info_dict['boardroom_apr']}%\n" \
-                f"APR: {float(info_dict['boardroom_apr'])*365}%"
+                f"- Current Epoch: {info_dict['current_epoch']}\n" \
+                f"- Next Epoch in: {info_dict['next_epoch']}\n" \
+                f"- RSHARE Staked:\n" \
+                   f"- - Amount: {info_dict['rshare_locked']}\n" \
+                   f"- - Worth: ${rshare_locked_value}\n" \
+                   f"- - {info_dict['rshare_locked_pct']}% of circulating.\n" \
+                f"- Daily ROI: {info_dict['boardroom_apr']}%\n" \
+                f"- APR: {'{:0.2f}'.format(float(info_dict['boardroom_apr'])*365)}%\n" \
+                f"-------------------------------------------\n" \
+                f"💵 💵 TVL: ${'{:,}'.format(float(info_dict['tvl']))} 💵 💵"
+
     await bot.edit_message(event.chat_id, loading_msg, message_text)
 
 
