@@ -350,7 +350,8 @@ async def show_full_price(event):
                 f"- Daily ROI: {info_dict['boardroom_apr']}%\n" \
                 f"- APR: {'{:0.2f}'.format(float(info_dict['boardroom_apr'])*365)}%\n" \
                 f"-------------------------------------------\n" \
-                f"💵 💵 TVL: ${'{:,}'.format(float(info_dict['tvl']))} 💵 💵"
+                f"💵 💵 TVL: ${'{:,}'.format(float(info_dict['tvl']))} 💵 💵\n" \
+                   f"- __Excluding genesis pools__"
 
     await bot.edit_message(event.chat_id, loading_msg, message_text)
 
