@@ -1589,6 +1589,10 @@ async def help_message(event):
         avail_commands += f"{key} - {custom_commands_dict[f'{key}']['description']}\n"
     await event.respond(f"**Available Commands:**\n"
                         f"/price - Shows current RAV and RSHARE price.\n"
+                        f"/stats - Shows full stats of Ravelin Finance.\n"
+                        f"/epoch - Shows current epoch and time until next.\n"
+                        f"/farms - Shows farms stats.\n"
+                        f"/boardroom - Shows boardroom stats.\n"
                         f"{avail_commands}"
                         f"__Note: You can use some commands with or without the /__")
 
