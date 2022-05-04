@@ -295,13 +295,16 @@ async def show_boardroom(event):
     get_data = rf.BlockchainData
     loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading Boardroom...__ ⌛")
     info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
-    rshare_staked_value = '{:0.2f}'.format(float(info_dict['rshare_locked'])*float(info_dict['rshare_price']))
-    rshare_staked_value = '{:,}'.format(float(rshare_staked_value))
+    rshare_locked_value = '{:0.2f}'.format(float(info_dict['rshare_locked'])*float(info_dict['rshare_price']))
+    rshare_locked_value = '{:,}'.format(float(rshare_locked_value))
 
     message_text = f"💼👔🍾 BOARDROOM 🍾👔💼\n" \
                    f"- Current Epoch: {info_dict['current_epoch']}\n" \
                    f"- Next Epoch in: {info_dict['next_epoch']}\n" \
-                   f"- RSHARE Staked: (${rshare_staked_value}) {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}%)\n" \
+                   f"- RSHARE Staked:\n" \
+                   f"- - Amount: {info_dict['rshare_locked']}\n" \
+                   f"- - Worth: ${rshare_locked_value}\n" \
+                   f"- - {info_dict['rshare_locked_pct']}% of circulating.\n" \
                    f"- Daily ROI: {info_dict['boardroom_apr']}%\n" \
                    f"- APR: {float(info_dict['boardroom_apr'])*365}%"
 
