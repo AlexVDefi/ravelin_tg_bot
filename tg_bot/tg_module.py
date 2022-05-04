@@ -279,12 +279,12 @@ async def show_farms(event):
     message_text = f"👨‍🌾🌽🚜 FARMS 🚜🌽👨‍🌾\n" \
                    f"**RAV-mADA**:\n" \
                    f"- Daily ROI: {info_dict['rav_mada_apr']}%\n" \
-                   f"- APR: {float(info_dict['rav_mada_apr'])*365}%\n" \
+                   f"- APR: {'{:0.2f}'.format(float(info_dict['rav_mada_apr'])*365)}%\n" \
                    f"- TVL: {rav_tvl}\n" \
                    f"--------\n" \
                    f"**RSHARE-mADA**:\n" \
                    f"- Daily ROI: {info_dict['rshare_mada_apr']}%\n" \
-                   f"- APR: {float(info_dict['rshare_mada_apr'])*365}%\n" \
+                   f"- APR: {'{:0.2f}'.format(float(info_dict['rshare_mada_apr'])*365)}%\n" \
                    f"- TVL: {rshare_tvl}" \
 
     await bot.edit_message(event.chat_id, loading_msg, message_text)
@@ -306,7 +306,7 @@ async def show_boardroom(event):
                    f"- - Worth: ${rshare_locked_value}\n" \
                    f"- - {info_dict['rshare_locked_pct']}% of circulating.\n" \
                    f"- Daily ROI: {info_dict['boardroom_apr']}%\n" \
-                   f"- APR: {float(info_dict['boardroom_apr'])*365}%"
+                   f"- APR: {'{:0.2f}'.format(float(info_dict['boardroom_apr'])*365)}%"
 
     await bot.edit_message(event.chat_id, loading_msg, message_text)
 
