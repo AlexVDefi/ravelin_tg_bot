@@ -268,16 +268,24 @@ async def show_farms(event):
     get_data = rf.BlockchainData
     loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading Farms...__ ⌛")
     info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
+
+    rshare_locked_value = '{:0.2f}'.format(float(info_dict['rshare_locked'])*float(info_dict['rshare_price']))
+    rshare_locked_value = '{:,}'.format(float(rshare_locked_value))
+    rshare_tvl = '{:0.2f}'.format(info_dict['rshare_tvl'])
+    rshare_tvl = '{:,}'.format(float(rshare_tvl))
+    rav_tvl = '{:0.2f}'.format(info_dict['rav_tvl'])
+    rav_tvl = '{:,}'.format(float(rav_tvl))
+
     message_text = f"👨‍🌾🌽🚜 FARMS 🚜🌽👨‍🌾\n" \
                    f"**RAV-mADA**:\n" \
                    f"- Daily ROI: {info_dict['rav_mada_apr']}%\n" \
                    f"- APR: {float(info_dict['rav_mada_apr'])*365}%\n" \
-                   f"- TVL: {'{:0.2f}'.format(info_dict['rav_tvl'])}\n" \
+                   f"- TVL: {rav_tvl}\n" \
                    f"--------\n" \
                    f"**RSHARE-mADA**:\n" \
                    f"- Daily ROI: {info_dict['rshare_mada_apr']}%\n" \
                    f"- APR: {float(info_dict['rshare_mada_apr'])*365}%\n" \
-                   f"- TVL: {'{:0.2f}'.format(info_dict['rshare_tvl'])}" \
+                   f"- TVL: {rshare_tvl}" \
 
     await bot.edit_message(event.chat_id, loading_msg, message_text)
 
@@ -287,10 +295,13 @@ async def show_boardroom(event):
     get_data = rf.BlockchainData
     loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading Boardroom...__ ⌛")
     info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
+    rshare_staked_value = '{:0.2f}'.format(float(info_dict['rshare_locked'])*float(info_dict['rshare_price']))
+    rshare_staked_value = '{:,}'.format(float(rshare_staked_value))
+
     message_text = f"💼👔🍾 BOARDROOM 🍾👔💼\n" \
                    f"- Current Epoch: {info_dict['current_epoch']}\n" \
                    f"- Next Epoch in: {info_dict['next_epoch']}\n" \
-                   f"- RSHARE Staked: (${'{:0.2f}'.format(float(info_dict['rshare_locked'])*float(info_dict['rshare_price']))}) {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}%)\n" \
+                   f"- RSHARE Staked: (${rshare_staked_value}) {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}%)\n" \
                    f"- Daily ROI: {info_dict['boardroom_apr']}%\n" \
                    f"- APR: {float(info_dict['boardroom_apr'])*365}%"
 
