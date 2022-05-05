@@ -135,7 +135,7 @@ async def custom_filter(event):
         if "," in word:
             words = str(word).split(", ")
         else:
-            words = word
+            words = [word]
         for new_word in words:
             if new_word.lower() == event.raw_text.lower() or f"{new_word.lower()}@" in event.raw_text.lower():
                 return True
@@ -1624,6 +1624,7 @@ async def custom_command_send(event):
     buttons = command["buttons"]
     files = command["files"]
     if buttons:
+        print("yaarp")
         button_list = []
         for button in buttons:
             button_list.append([Button.url(f'{buttons[button][0]}', url=f'{buttons[button][1]}')])
