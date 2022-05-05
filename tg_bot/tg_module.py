@@ -250,15 +250,15 @@ async def show_price(event):
         peg_status = "🟢"
     else:
         peg_status = "🔴"
-    message_text = f"**RAV:** ${info_dict['rav_price']}\n" \
+    message_text = f"**RAV:** - ${info_dict['rav_price']}\n" \
                    f"- PEG: {peg_status} x{info_dict['peg']}\n" \
                    f"- Circulating: {info_dict['circulating_rav']}\n" \
-                   f"--------\n" \
-                   f"**RSHARE:** ${info_dict['rshare_price']}\n" \
+                   f" \n" \
+                   f"**RSHARE:** - ${info_dict['rshare_price']}\n" \
                    f"- Circulating: {info_dict['circulating_rshare']}\n" \
                    f"- In Boardroom: {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}%)\n" \
-                   f"--------\n" \
-                   f"**ADA**: ${info_dict['ada_price']}" \
+                   f" \n" \
+                   f"**ADA**: - ${info_dict['ada_price']}" \
 
     await bot.edit_message(event.chat_id, loading_msg, message_text)
 
@@ -276,16 +276,17 @@ async def show_farms(event):
     rav_tvl = '{:0.2f}'.format(info_dict['rav_tvl'])
     rav_tvl = '{:,}'.format(float(rav_tvl))
 
-    message_text = f"👨‍🌾🌽🚜 FARMS 🚜🌽👨‍🌾\n" \
-                   f"**RAV-mADA**:\n" \
+    message_text = f"👨‍🌾🌽🚜 **FARMS** 🚜🌽👨‍🌾\n" \
+                   f" \n" \
+                   f"**RAV-mADA**: - ${info_dict['rav_lp_price']}\n" \
                    f"- Daily ROI: {info_dict['rav_mada_apr']}%\n" \
                    f"- APR: {'{:0.2f}'.format(float(info_dict['rav_mada_apr'])*365)}%\n" \
-                   f"- TVL: {rav_tvl}\n" \
-                   f"--------\n" \
-                   f"**RSHARE-mADA**:\n" \
+                   f"- TVL: ${rav_tvl}\n" \
+                   f" \n" \
+                   f"**RSHARE-mADA**: - ${info_dict['rshare_lp_price']}\n" \
                    f"- Daily ROI: {info_dict['rshare_mada_apr']}%\n" \
                    f"- APR: {'{:0.2f}'.format(float(info_dict['rshare_mada_apr'])*365)}%\n" \
-                   f"- TVL: {rshare_tvl}" \
+                   f"- TVL: ${rshare_tvl}"
 
     await bot.edit_message(event.chat_id, loading_msg, message_text)
 
@@ -298,7 +299,8 @@ async def show_boardroom(event):
     rshare_locked_value = '{:0.2f}'.format(float(info_dict['rshare_locked'])*float(info_dict['rshare_price']))
     rshare_locked_value = '{:,}'.format(float(rshare_locked_value))
 
-    message_text = f"💼👔🍾 BOARDROOM 🍾👔💼\n" \
+    message_text = f"💼👔🍾 **BOARDROOM** 🍾👔💼\n" \
+                   f" \n" \
                    f"- Current Epoch: {info_dict['current_epoch']}\n" \
                    f"- Next Epoch in: {info_dict['next_epoch']}\n" \
                    f"- RSHARE Staked:\n" \
@@ -330,31 +332,33 @@ async def show_full_price(event):
     rav_tvl = '{:0.2f}'.format(info_dict['rav_tvl'])
     rav_tvl = '{:,}'.format(float(rav_tvl))
 
-    message_text = f"🤑💰💸 TOKENS 💸💰🤑\n" \
-                f"**RAV**:\n" \
-                f"- ${info_dict['rav_price']}\n" \
+    message_text = f"🤑💰💸 **TOKENS** 💸💰🤑\n" \
+                f" \n" \
+                f"**RAV**: - ${info_dict['rav_price']}\n" \
                 f"- PEG: {peg_status} x{info_dict['peg']}\n" \
                 f"- Circulating: {info_dict['circulating_rav']}\n" \
-                f"--------\n" \
-                f"**RSHARE**:\n" \
-                f"- ${info_dict['rshare_price']}\n" \
+                f" \n" \
+                f"**RSHARE**: - ${info_dict['rshare_price']}\n" \
                 f"- Circulating: {info_dict['circulating_rshare']}\n" \
-                f"--------\n" \
-                f"**ADA**:\n" \
-                f"- ${info_dict['ada_price']}\n" \
+                f" \n" \
+                f"**ADA**: - ${info_dict['ada_price']}\n" \
+                f" \n" \
                 f"-------------------------------------------\n" \
-                f"👨‍🌾🌽🚜 FARMS 🚜🌽👨‍🌾\n" \
-                f"**RAV-mADA**:\n" \
+                f"👨‍🌾🌽🚜 **FARMS** 🚜🌽👨‍🌾\n" \
+                f" \n" \
+                f"**RAV-mADA**: - ${info_dict['rav_lp_price']}\n" \
                 f"- Daily ROI: {info_dict['rav_mada_apr']}%\n" \
                 f"- APR: {'{:0.2f}'.format(float(info_dict['rav_mada_apr'])*365)}%\n" \
                 f"- TVL: ${rav_tvl}\n" \
-                f"--------\n" \
-                f"**RSHARE-mADA**:\n" \
+                f" \n" \
+                f"**RSHARE-mADA**: - ${info_dict['rshare_lp_price']}\n" \
                 f"- Daily ROI: {info_dict['rshare_mada_apr']}%\n" \
                 f"- APR: {'{:0.2f}'.format(float(info_dict['rshare_mada_apr'])*365)}%\n" \
                 f"- TVL: ${rshare_tvl}\n" \
+                f" \n" \
                 f"-------------------------------------------\n" \
-                f"💼👔🍾 BOARDROOM 🍾👔💼\n" \
+                f"💼👔🍾 **BOARDROOM** 🍾👔💼\n" \
+                f" \n" \
                 f"- Current Epoch: {info_dict['current_epoch']}\n" \
                 f"- Next Epoch in: {info_dict['next_epoch']}\n" \
                 f"- RSHARE Staked:\n" \
@@ -363,8 +367,9 @@ async def show_full_price(event):
                    f"- - {info_dict['rshare_locked_pct']}% of circulating.\n" \
                 f"- Daily ROI: {info_dict['boardroom_apr']}%\n" \
                 f"- APR: {'{:0.2f}'.format(float(info_dict['boardroom_apr'])*365)}%\n" \
+                f" \n" \
                 f"-------------------------------------------\n" \
-                f"💵 💵 TVL: ${'{:,}'.format(float(info_dict['tvl']))} 💵 💵\n" \
+                f"💵 💵 **TVL:** ${'{:,}'.format(float(info_dict['tvl']))} 💵 💵\n" \
                    f"- __Excluding genesis pools__"
 
     await bot.edit_message(event.chat_id, loading_msg, message_text)
@@ -1098,6 +1103,7 @@ async def handler(event):
 
     if event.data == b'check-muted':
         try:
+            user_id = event.query.user_id
             kicked = await bot.get_participants(channel_id, filter=ChannelParticipantsBanned)
             kicked_len = len(kicked)
             id_list = []
