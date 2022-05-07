@@ -25,12 +25,12 @@ async def get_stats_img():
     rav_tvl = '{:,}'.format(float(rav_tvl))
 
     my_image = Image.open(filepath_files+"/stats_pic.png")
-    title_font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/files/Inter/Inter-regular.ttf', 23)
-    title_font_bold = ImageFont.truetype('/usr/share/fonts/truetype/freefont/files/Inter/Inter-Bold.ttf', 23)
-    bit_bigger_font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/files/Inter/Inter-Bold.ttf', 30)
-    bigger_font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/files/Inter/Inter-Bold.ttf', 36)
-    smaller_font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/files/Inter/Inter-regular.ttf', 20)
-    smallest_font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/files/Inter/Inter-regular.ttf', 14)
+    title_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-regular.ttf', 23)
+    title_font_bold = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-Bold.ttf', 23)
+    bit_bigger_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-Bold.ttf', 30)
+    bigger_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-Bold.ttf', 36)
+    smaller_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-regular.ttf', 20)
+    smallest_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-regular.ttf', 14)
 
     image_editable = ImageDraw.Draw(my_image)
     # RAV PRICE
