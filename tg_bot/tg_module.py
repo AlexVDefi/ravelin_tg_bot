@@ -21,7 +21,7 @@ from captcha.image import ImageCaptcha
 import datetime
 import pickle
 import ravelin_functions as rf
-from tg_bot.image_creator import get_stats_img
+from image_creator import get_stats_img
 from PIL import Image, ImageDraw, ImageFont
 
 # File paths to other folders
