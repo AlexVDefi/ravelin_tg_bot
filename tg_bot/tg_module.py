@@ -21,6 +21,8 @@ from captcha.image import ImageCaptcha
 import datetime
 import pickle
 import ravelin_functions as rf
+from tg_bot.image_creator import get_stats_img
+from PIL import Image, ImageDraw, ImageFont
 
 # File paths to other folders
 parent_dir = os.path.abspath(up(__file__))
@@ -315,64 +317,12 @@ async def show_boardroom(event):
 
 @bot.on(events.NewMessage(pattern="/stats"))
 async def show_full_price(event):
-    if project_presets['price']['enabled'] == 0:
-        return
-    get_data = rf.BlockchainData
     loading_msg = await bot.send_message(event.chat_id, f"⏳ __Loading stats...__ ⌛")
-    info_dict = await get_data("MILKOMEDA", "OccamX").get_ravelin_stats()
-    if float(info_dict['peg']) > 1:
-        peg_status = "🟢"
-    else:
-        peg_status = "🔴"
-
-    rshare_locked_value = '{:0.2f}'.format(float(info_dict['rshare_locked'])*float(info_dict['rshare_price']))
-    rshare_locked_value = '{:,}'.format(float(rshare_locked_value))
-    rshare_tvl = '{:0.2f}'.format(info_dict['rshare_tvl'])
-    rshare_tvl = '{:,}'.format(float(rshare_tvl))
-    rav_tvl = '{:0.2f}'.format(info_dict['rav_tvl'])
-    rav_tvl = '{:,}'.format(float(rav_tvl))
-
-    message_text = f"🤑💰💸 **TOKENS** 💸💰🤑\n" \
-                f" \n" \
-                f"**RAV**: - ${info_dict['rav_price']}\n" \
-                f"- PEG: {peg_status} x{info_dict['peg']}\n" \
-                f"- Circulating: {info_dict['circulating_rav']}\n" \
-                f" \n" \
-                f"**RSHARE**: - ${info_dict['rshare_price']}\n" \
-                f"- Circulating: {info_dict['circulating_rshare']}\n" \
-                f" \n" \
-                f"**ADA**: - ${info_dict['ada_price']}\n" \
-                f" \n" \
-                f"-------------------------------------------\n" \
-                f"👨‍🌾🌽🚜 **FARMS** 🚜🌽👨‍🌾\n" \
-                f" \n" \
-                f"**RAV-mADA**: - ${info_dict['rav_lp_price']}\n" \
-                f"- Daily ROI: {info_dict['rav_mada_apr']}%\n" \
-                f"- APR: {'{:0.2f}'.format(float(info_dict['rav_mada_apr'])*365)}%\n" \
-                f"- TVL: ${rav_tvl}\n" \
-                f" \n" \
-                f"**RSHARE-mADA**: - ${info_dict['rshare_lp_price']}\n" \
-                f"- Daily ROI: {info_dict['rshare_mada_apr']}%\n" \
-                f"- APR: {'{:0.2f}'.format(float(info_dict['rshare_mada_apr'])*365)}%\n" \
-                f"- TVL: ${rshare_tvl}\n" \
-                f" \n" \
-                f"-------------------------------------------\n" \
-                f"💼👔🍾 **BOARDROOM** 🍾👔💼\n" \
-                f" \n" \
-                f"- Current Epoch: {info_dict['current_epoch']}\n" \
-                f"- Next Epoch in: {info_dict['next_epoch']}\n" \
-                f"- RSHARE Staked:\n" \
-                   f"- - Amount: {info_dict['rshare_locked']}\n" \
-                   f"- - Worth: ${rshare_locked_value}\n" \
-                   f"- - {info_dict['rshare_locked_pct']}% of circulating.\n" \
-                f"- Daily ROI: {info_dict['boardroom_apr']}%\n" \
-                f"- APR: {'{:0.2f}'.format(float(info_dict['boardroom_apr'])*365)}%\n" \
-                f" \n" \
-                f"-------------------------------------------\n" \
-                f"💵 💵 **TVL:** ${'{:,}'.format(float(info_dict['tvl']))} 💵 💵\n" \
-                   f"- __Excluding genesis pools__"
-
-    await bot.edit_message(event.chat_id, loading_msg, message_text)
+    await get_stats_img()
+    file_to_send = filepath_files+"/current_stats.png"
+    await bot.delete_messages(event.chat_id, message_ids=loading_msg.id)
+    await bot.send_file(event.chat_id, file=file_to_send)
+    os.remove(file_to_send)
 
 
 @bot.on(events.NewMessage(pattern="/bridge"))
@@ -1495,17 +1445,6 @@ async def banned_words_func(event):
 # Test function - Can be changed and used to run quick tests
 @bot.on(events.NewMessage(pattern="/test"))
 async def test(event):
-    # message_buttons = []
-    # buttons = project_presets['welcome_msg']['buttons']
-    # for button in buttons:
-    #     if buttons[button]:
-    #         print(buttons[button])
-    #         # print(buttons[button][1])
-    #         if buttons[button][1]:
-    #             # print(buttons[button][0], buttons[button][1])
-    #             message_buttons.append([Button.url(text=buttons[button][0], url=buttons[button][1])])
-    #
-    # await bot.send_message(event.chat_id, "hi", buttons=message_buttons)
     pass
 
 
