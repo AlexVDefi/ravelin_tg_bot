@@ -296,11 +296,14 @@ class BlockchainData:
         else:
             expansion_rate = 0.01
 
+        rbond_available = "{:0.2f}".format(float(Web3.fromWei(self.treasury_contract.functions.getReserve().call(), "ether")))
+
         boardroom_daily_alloc = float(rav_circulating) * float(expansion_rate) * 4
         boardroom_daily_roi = "{:0.2f}".format(1 / float(boardroom_tvl) * boardroom_daily_alloc * float(real_rav) * 100)
 
         return {"rav_price": real_rav, "rshare_price": real_rshare, "ada_price": real_ada, "tvl": total_tvl,
                 "rav_lp_price": rav_lp_price, "rshare_lp_price": rshare_lp_price, "expansion": expansion_rate,
+                "rbond_available": rbond_available,
                 "rav_tvl": rav_tvl, "rshare_tvl": rshare_tvl, "boardroom_tvl": boardroom_tvl, "next_epoch": next_epoch,
                 "current_epoch": current_epoch, "rav_mada_apr": rav_mada_daily_roi, "rshare_mada_apr": rshare_mada_daily_roi,
                 "boardroom_apr": boardroom_daily_roi, "circulating_rav": rav_circulating, "circulating_rshare": rshare_circulating,

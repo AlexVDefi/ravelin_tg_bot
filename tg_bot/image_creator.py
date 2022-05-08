@@ -29,7 +29,7 @@ async def get_stats_img():
     bit_bigger_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Bold.ttf', 30)
     bigger_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Bold.ttf', 36)
     smaller_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 20)
-    smallest_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 17)
+    smallest_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 22)
     price_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 36)
     price_font_small = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 26)
 
@@ -127,9 +127,11 @@ async def get_stats_img():
         image_editable.text((580,1000), rates_text_2, (106, 106, 106), font=title_font_bold)
         image_editable.text((728,1000), rates_text_3, (96, 96, 96), font=title_font)
     else:
-        rates_text = f"TWAP x{info_dict['peg']}"
-        rates_text_2 = f"Boardroom Rewards Paused"
-        image_editable.text((590,1020), rates_text, (96, 96, 96), font=price_font_small)
-        image_editable.text((540,1060), rates_text_2, (106, 106, 106), font=title_font_bold)
+        rates_text_2 = f"TWAP x{info_dict['peg']}"
+        rates_text = f"Available:  {info_dict['rbond_available']}"
+        rates_text_3 = f"Boardroom Rewards Paused"
+        image_editable.text((570,1010), rates_text, (96, 96, 96), font=price_font_small)
+        image_editable.text((570,1045), rates_text_2, (84, 0, 0), font=smallest_font)
+        image_editable.text((540,1070), rates_text_3, (146, 146, 146), font=title_font_bold)
 
     my_image.save(filepath_files+"/current_stats.png")
