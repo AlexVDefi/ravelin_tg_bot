@@ -10,8 +10,6 @@ import asyncio
 async def get_stats_img():
     parent_dir = os.path.abspath(up(__file__))
     filepath_files = os.path.join(up(parent_dir), 'files')
-    filepath_sqlite = os.path.join(up(parent_dir), 'SQLite')
-    sqlite_db = filepath_sqlite + "/tg_bot_dev.db"
 
     get_data = rf.BlockchainData
 
@@ -24,42 +22,49 @@ async def get_stats_img():
     rav_tvl = '{:0.2f}'.format(info_dict['rav_tvl'])
     rav_tvl = '{:,}'.format(float(rav_tvl))
 
-    my_image = Image.open(filepath_files+"/stats_pic.png")
-    title_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-Regular.ttf', 23)
-    title_font_bold = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-Bold.ttf', 23)
-    bit_bigger_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-Bold.ttf', 30)
-    bigger_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-Bold.ttf', 36)
-    smaller_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-Regular.ttf', 20)
-    smallest_font = ImageFont.truetype(r'/usr/share/fonts/truetype/freefont/files/Inter/Inter-Regular.ttf', 14)
 
-    image_editable = ImageDraw.Draw(my_image)
+
+    title_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 25)
+    title_font_bold = ImageFont.truetype(filepath_files+'/Inter/Inter-Bold.ttf', 25)
+    bit_bigger_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Bold.ttf', 30)
+    bigger_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Bold.ttf', 36)
+    smaller_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 20)
+    smallest_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 17)
+    price_font = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 36)
+    price_font_small = ImageFont.truetype(filepath_files+'/Inter/Inter-Regular.ttf', 26)
+
+
     # RAV PRICE
     rav_price_text = f"${info_dict['rav_price']}"
     rav_twap_text = f"TWAP:\nx{info_dict['peg']}"
-    if float(info_dict['peg']) >= 1:
+    if float(info_dict['peg']) >= 1.01:
+        my_image = Image.open(filepath_files+"/stats_pic.png")
         peg_status = (0, 78, 10)
     else:
+        my_image = Image.open(filepath_files+"/stats_pic_rbond.png")
         peg_status = (84, 0, 0)
-    image_editable.text((174,308), rav_price_text, (96, 96, 96), font=title_font)
-    image_editable.text((190,348), rav_twap_text, peg_status, font=smaller_font)
+    image_editable = ImageDraw.Draw(my_image)
+
+    image_editable.text((134,290), rav_price_text, (96, 96, 96), font=price_font)
+    image_editable.text((170,358), rav_twap_text, peg_status, font=price_font_small)
 
     # RSHARE PRICE
     rshare_price_text = f"${info_dict['rshare_price']}"
-    rshare_staked = f"In Boardroom:\n{info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}%)"
-    image_editable.text((680,308), rshare_price_text, (96, 96, 96), font=title_font)
-    image_editable.text((670,348), rshare_staked, (96, 96, 96), font=smaller_font)
+    rshare_staked = f"In Boardroom:\n {info_dict['rshare_locked']} ({info_dict['rshare_locked_pct']}%)"
+    image_editable.text((660,290), rshare_price_text, (96, 96, 96), font=price_font)
+    image_editable.text((660,358), rshare_staked, (96, 96, 96), font=price_font_small)
 
     # ADA
     ada_price_text = f"${info_dict['ada_price']}"
-    image_editable.text((438,429), ada_price_text, (96, 96, 96), font=smaller_font)
+    image_editable.text((428,419), ada_price_text, (96, 96, 96), font=price_font_small)
 
     # TVL
     tvl_text = f"${'{:,}'.format(float(info_dict['tvl']))}"
     tvl_text_2 = f"    Excluding\n"\
                  f"Genesis Pools"
 
-    image_editable.text((410,138), tvl_text, (96, 96, 96), font=title_font)
-    image_editable.text((433,185), tvl_text_2, (96, 96, 96), font=smallest_font)
+    image_editable.text((400,138), tvl_text, (96, 96, 96), font=price_font_small)
+    image_editable.text((413,185), tvl_text_2, (96, 96, 96), font=smaller_font)
 
     # RAV LP
     rav_lp_price_text = f"LP Price:\n" \
@@ -71,7 +76,7 @@ async def get_stats_img():
                           f"{'{:0.2f}'.format(float(info_dict['rav_mada_apr'])*365)}%\n" \
                           f"${rav_tvl}"
     image_editable.text((70,605), rav_lp_price_text, (126, 126, 126), font=title_font_bold)
-    image_editable.text((190,605), rav_lp_price_text_2, (96, 96, 96), font=title_font)
+    image_editable.text((205,605), rav_lp_price_text_2, (96, 96, 96), font=title_font)
 
     # RSHARE LP
     rshare_lp_price_text = f"LP Price:\n" \
@@ -83,7 +88,7 @@ async def get_stats_img():
                           f"{'{:0.2f}'.format(float(info_dict['rshare_mada_apr'])*365)}%\n" \
                           f"${rshare_tvl}"
     image_editable.text((540,605), rshare_lp_price_text, (126, 126, 126), font=title_font_bold)
-    image_editable.text((660,605), rshare_lp_price_text_2, (96, 96, 96), font=title_font)
+    image_editable.text((675,605), rshare_lp_price_text_2, (96, 96, 96), font=title_font)
 
     # EPOCHS
     current_epoch_text = f"Current Epoch: {info_dict['current_epoch']}"
@@ -107,18 +112,24 @@ async def get_stats_img():
                            f"{info_dict['rshare_locked_pct']}%"
     image_editable.text((130,956), rshare_staked_text, (96, 96, 96), font=bit_bigger_font)
     image_editable.text((112,1000), rshare_staked_text_2, (106, 106, 106), font=title_font_bold)
-    image_editable.text((272,1000), rshare_staked_text_3, (96, 96, 96), font=title_font)
+    image_editable.text((280,1000), rshare_staked_text_3, (96, 96, 96), font=title_font)
 
     # RATES
-    rates_text = f"Boardroom Rates"
-    rates_text_2 = f"Expansion:\n" \
-                   f"Daily ROI:\n" \
-                           f"APR:"
-    rates_text_3 = f"{info_dict['expansion'] * 100}%\n" \
-                   f"{info_dict['boardroom_apr']}%\n" \
-                           f"{'{:0.2f}'.format(float(info_dict['boardroom_apr'])*365)}%"
-    image_editable.text((590,956), rates_text, (96, 96, 96), font=bit_bigger_font)
-    image_editable.text((580,1000), rates_text_2, (106, 106, 106), font=title_font_bold)
-    image_editable.text((720,1000), rates_text_3, (96, 96, 96), font=title_font)
+    if float(info_dict['peg']) >= 1.01:
+        rates_text = f"Boardroom Rates"
+        rates_text_2 = f"APR:\n" \
+                       f"Daily ROI:\n" \
+                       f"Expansion:"
+        rates_text_3 = f"{'{:0.2f}'.format(float(info_dict['boardroom_apr'])*365)}%\n" \
+                       f"{info_dict['boardroom_apr']}%\n" \
+                       f"{info_dict['expansion'] * 100}%"
+        image_editable.text((590,956), rates_text, (96, 96, 96), font=bit_bigger_font)
+        image_editable.text((580,1000), rates_text_2, (106, 106, 106), font=title_font_bold)
+        image_editable.text((728,1000), rates_text_3, (96, 96, 96), font=title_font)
+    else:
+        rates_text = f"TWAP x{info_dict['peg']}"
+        rates_text_2 = f"Boardroom Rewards Paused"
+        image_editable.text((590,1020), rates_text, (96, 96, 96), font=price_font_small)
+        image_editable.text((540,1060), rates_text_2, (106, 106, 106), font=title_font_bold)
 
     my_image.save(filepath_files+"/current_stats.png")
