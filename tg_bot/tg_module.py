@@ -1560,7 +1560,8 @@ async def fun_vman(event):
               "admin increase taxes", "dev decrease amount of nfts", "dev are you sure?",
               "you didnt listen me\nthats why you dont earn a lot of money from this project",
               'they dont understand\ngive them book "how to defi"']
-    await event.respond(quotes[random.randint(0, len(quotes))])
+    await event.respond(f"{quotes[random.randint(0, len(quotes))]}\n"
+                        f"__-The Legend, vaultman555__")
 
 
 @bot.on(events.NewMessage(func=marketing_filter))
