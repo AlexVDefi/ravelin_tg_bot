@@ -296,7 +296,7 @@ class BlockchainData:
         else:
             expansion_rate = 0.01
 
-        rbond_available = "{:0.2f}".format(float(Web3.fromWei(self.treasury_contract.functions.getReserve().call(), "ether")))
+        rbond_available = "{:0.2f}".format(float(Web3.fromWei(self.treasury_contract.functions.epochSupplyContractionLeft().call(), "ether")))
 
         boardroom_daily_alloc = float(rav_circulating) * float(expansion_rate) * 4
         boardroom_daily_roi = "{:0.2f}".format(1 / float(boardroom_tvl) * boardroom_daily_alloc * float(real_rav) * 100)

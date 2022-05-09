@@ -6,7 +6,6 @@ from telethon.tl.functions.channels import EditBannedRequest, GetMessagesRequest
 from telethon.tl.functions.messages import GetStickerSetRequest
 from telethon.tl.types import ChatBannedRights, InputStickerSetID
 from telethon.tl.types import ChannelParticipantsKicked, ChannelParticipantsBanned
-from telethon.utils import pack_bot_file_id, resolve_bot_file_id
 from time import time
 import re
 import sqlalchemy as db
@@ -18,11 +17,9 @@ import asyncio
 import string
 import random, os
 from captcha.image import ImageCaptcha
-import datetime
 import pickle
 import ravelin_functions as rf
 from image_creator import get_stats_img
-from PIL import Image, ImageDraw, ImageFont
 
 # File paths to other folders
 parent_dir = os.path.abspath(up(__file__))
@@ -145,6 +142,12 @@ async def custom_filter(event):
                 return True
     return False
 
+async def marketing_filter(event):
+    marketing_word_list = ['marketing', 'listing']
+    if marketing_word_list[0].lower() in event.raw_text.lower() or marketing_word_list[1].lower() in event.raw_text.lower():
+        if 'proposal' in event.raw_text.lower():
+            return True
+    return False
 
 async def fun_filter(event):
     for word in fun_filter_list:
@@ -1549,8 +1552,52 @@ async def fun_dog(event):
 # Secret vaultman, pls fix
 @bot.on(events.NewMessage(pattern="/vaultman"))
 async def fun_vman(event):
-    quotes = ["wen next layer?", "dev fix price", "disable sell button", "dev burn more", "need more shill", "admin you burn too much tokens", "nox fix it", "too many tokens", "need more burn", "WHEN NEXT LAYER?"]
-    await event.respond(quotes[random.randint(0, 9)])
+    quotes = ["wen next layer?", "dev fix price", "disable sell button", "dev burn more", "need more shill",
+              "admin you burn too much tokens", "nox fix it", "too many tokens", "need more burn", "WHEN NEXT LAYER?",
+              "admin what about next layer", "i need exact date", "admin decrease minting",
+              "[and what about next layer?](https://youtu.be/gA8LV37QwxA?t=13)", "you are not right",
+              "too many tokens", "people dont understand that in a few days price will doubled at least",
+              "admin increase taxes", "dev decrease amount of nfts", "dev are you sure?",
+              "you didnt listen me\nthats why you dont earn a lot of money from this project",
+              'they dont understand\ngive them book "how to defi"']
+    await event.respond(quotes[random.randint(0, len(quotes))])
+
+
+@bot.on(events.NewMessage(func=marketing_filter))
+async def marketing_proposals(event):
+    unbanned = ChatBannedRights(
+        until_date= None,
+    )
+    restricted = ChatBannedRights(
+        until_date= None,
+        send_messages=True,
+        send_media=True,
+        send_stickers=True,
+        send_gifs=True,
+        send_games=True,
+        send_inline=True,
+        embed_links=True
+    )
+    try:
+        peer_user = event.original_update.message.peer_id.user_id
+    except:
+        peer_user = event.from_id.user_id
+    if peer_user in admin_list:
+        return
+    user = await bot.get_entity(peer_user)
+    if not user.username and not user.last_name:
+        user_id = user.first_name
+    elif not user.username:
+        user_id = user.first_name, user.last_name
+    else:
+        user_id = "@"+str(user.username)
+    await bot.delete_messages(event.chat_id, message_ids=event.message.id)
+    await bot.send_message(event.chat_id, f"{user_id}, it looks like you have mentioned a marketing or listing proposal.\n"
+                                          f"Please DM this bot with your offer and an admin will get back to you.")
+    await asyncio.sleep(5)
+    await bot(EditBannedRequest(event.chat_id, peer_user, restricted))
+
+
 
 
 # Function custom commands
@@ -1600,7 +1647,7 @@ async def help_message(event):
                         f"/epoch - Shows current epoch and time until next.\n"
                         f"/farms - Shows farms stats.\n"
                         f"/boardroom - Shows boardroom stats.\n"
-                        f"/bridge - Instructions on how to bridge"
+                        f"/bridge - Instructions on how to bridge\n"
                         f"{avail_commands}"
                         f"__Note: You can use some commands with or without the /__")
 
