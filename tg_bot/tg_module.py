@@ -1377,6 +1377,12 @@ async def mute_ban_function(event):
                 await bot(EditBannedRequest(event.chat_id, reply_user_id, unbanned))
                 await asyncio.sleep(10)
                 await bot.delete_messages(event.chat_id, message_ids=[unmuted_msg.id])
+        elif "marketing" in replied_msg_text:
+            await bot.delete_messages(event.chat_id, message_ids=event.reply_to.reply_to_msg_id)
+            await bot.send_message(event.chat_id, f"{user_id}, it looks like you have mentioned a marketing or listing proposal.\n"
+                                                  f"Please DM this bot with your offer and an admin will get back to you.")
+            await asyncio.sleep(5)
+            await bot(EditBannedRequest(event.chat_id, reply_user_id, restricted))
     except:
         no_msg = await bot.send_message(event.chat_id, f"Eh, no I'm not doing that...\n")
 
