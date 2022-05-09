@@ -1561,6 +1561,7 @@ async def fun_vman(event):
               "you didnt listen me\nthats why you dont earn a lot of money from this project",
               'they dont understand\ngive them book "how to defi"']
     await event.respond(f"{quotes[random.randint(0, len(quotes))]}\n"
+                        f" \n"
                         f"__-The Legend, vaultman555__")
 
 
