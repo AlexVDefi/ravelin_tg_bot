@@ -131,7 +131,7 @@ class BlockchainData:
         decimals = "ether"
         token_name = ""
         if token == self.stable_address:
-            decimals = "mwei"
+            decimals = "ether"
             token_name = "ADA"
         elif token == self.rshare_address:
             token_name = "RSHARE"
