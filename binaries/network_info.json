@@ -29,7 +29,7 @@
     "RPC": "https://rpc-mainnet-cardano-evm.c1.milkomeda.com/",
     "CHAIN": "0x7d1",
     "NATIVE": ["MADA", "0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9"],
-    "STABLE": ["USDC", "0x5a955FDdF055F2dE3281d99718f5f1531744B102"],
+    "STABLE": ["ceBUSD", "0x4Bf769b05E832FCdc9053fFFBC78Ca889aCb5E1E"],
     "CONTRACT": "PCS"
   }
 ]
